@@ -1,5 +1,7 @@
-﻿using Infra.Contex;
+﻿using Domain.Interfaces;
+using Infra.Contex;
 using Infra.Interface;
+using Infra.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -26,6 +28,7 @@ namespace First_2._0.Web
 
             services.AddDbContext<MainContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("FirstConnectionString")));
             services.AddScoped<IMainContext, MainContext>();
+            services.AddScoped<IUsuarioRepository, UsuarioRepository>();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
