@@ -21,6 +21,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Domain\Domain.csproj" />
+    <ProjectReference Include="..\First2.0.Application\First2.0.Application.csproj" />
   </ItemGroup>
 
 </Project>
