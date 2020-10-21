@@ -35,6 +35,7 @@ namespace First2._0.Web
                options.Filters.Add(typeof(JsonExceptionFilter))
            ).SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
+            ConfigureDbContextCollection(services);
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.AddDbContext<MainContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("FirstConnectionString")));
             services.AddScoped<IUsuarioRepository, UsuarioRepository>();
@@ -62,6 +63,12 @@ namespace First2._0.Web
             app.UseHttpsRedirection();
             app.UseMvc();
             app.UseCors(option => option.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
+        }
+
+        private void ConfigureDbContextCollection(IServiceCollection services)
+        {
+            services.AddDbContext<MainContext>(opt =>
+            opt.UseSqlServer(Configuration.GetConnectionString("FirstConnectionString")));
         }
     }
 }
