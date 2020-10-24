@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc.Testing;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Net;
 using System.Net.Http;
 using System.Text;
@@ -12,6 +13,7 @@ using Xunit;
 
 namespace First2._0.Tests.Integration.Utils
 {
+    [ExcludeFromCodeCoverage]
     [Collection("Sequential")]
     public abstract class IntegrationTestsBase : IClassFixture<CustomWebAppFactory<Startup>>
     {
