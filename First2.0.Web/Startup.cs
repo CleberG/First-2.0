@@ -1,21 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using First2._0.Application.Services;
+﻿using First2._0.Application.Services;
 using First2._0.Infra.Context;
 using First2._0.Infra.Filter;
 using First2._0.Infra.Repositories;
 using Fisrt2._0.Domain.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
+using Microsoft.Extensions.Hosting;
 
 namespace First2._0.Web
 {
@@ -30,20 +24,20 @@ namespace First2._0.Web
 
         public void ConfigureServices(IServiceCollection services)
         {
-
             services.AddMvc(options =>
                options.Filters.Add(typeof(JsonExceptionFilter))
-           ).SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+           ).SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
 
-            ConfigureDbContextCollection(services);
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
+            services.AddMvc(options => options.EnableEndpointRouting = false);
+
             services.AddDbContext<MainContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("FirstConnectionString")));
             services.AddScoped<IUsuarioRepository, UsuarioRepository>();
             services.AddScoped<IUsuarioService, UsuarioService>();
             services.AddCors();
         }
 
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
@@ -60,8 +54,8 @@ namespace First2._0.Web
                 context.Database.Migrate();
             }
 
-            app.UseHttpsRedirection();
             app.UseMvc();
+            app.UseHttpsRedirection();
             app.UseCors(option => option.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
         }
 
