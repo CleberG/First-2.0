@@ -58,7 +58,7 @@ namespace First2._0.Tests.Integration.Utils
             var serializedUser = JsonConvert.SerializeObject(requestModel);
             var body = new StringContent(serializedUser, Encoding.UTF8, "application/json");
             var response = Client.PostAsync($"/api/{route}", body).Result;
-            var content = await response.Content.ReadAsStringAsync();
+            var content = response.Content.ReadAsStringAsync().Result;
             var data = JsonConvert.DeserializeObject<U>(content);
 
             return new ApiResponse<U>
