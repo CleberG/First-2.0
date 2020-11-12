@@ -4,6 +4,7 @@ using First2._0.Web;
 using FluentAssertions;
 using Newtonsoft.Json;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using Xunit;
@@ -44,15 +45,10 @@ namespace First2._0.Tests.Integration.Integration.UsuarioTest
         [Fact]
         public async Task Deve_Buscar_Todos()
         {
-            var buscaUsuarios = _setup.BuscarUsuario();
             var usuario = await Client.GetAsync("api/usuario");
             var resultJsonUsuario = await usuario.Content.ReadAsStringAsync();
             var getResponse = JsonConvert.DeserializeObject<List<UsuarioResponseModel>>(resultJsonUsuario);
-
-            getResponse.Should().HaveCount(1);
-            getResponse.Should().Contain(x => x.Nome == buscaUsuarios.Nome
-                                        && x.Login == buscaUsuarios.Login
-                                        && x.Senha == buscaUsuarios.Senha);
+            getResponse.All(x => x.Ativo);
         }
 
         [Fact]
