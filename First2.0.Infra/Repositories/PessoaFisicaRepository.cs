@@ -1,15 +1,12 @@
 ﻿using First2._0.Infra.Context;
-using Fisrt2._0.Domain;
+using Fisrt2._0.Domain.Entidades;
 using Fisrt2._0.Domain.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace Fisrt2._0.Domain.Entidades
+namespace First2._0.Infra.Repositories
 {
-    class PessoaFisicaRepository : GenericRepository<PessoaFisica>, IUsuarioRepository
+    class PessoaFisicaRepository : GenericRepository<PessoaFisica>, IPessoaFisicaRepository
     {
-        public UsuarioRepository(MainContext dbContext) : base(dbContext)
+        public PessoaFisicaRepository(MainContext dbContext) : base(dbContext)
         {
         }
     }
