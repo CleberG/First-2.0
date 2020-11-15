@@ -34,7 +34,9 @@ namespace First2._0.Web
 
             services.AddDbContext<MainContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("FirstConnectionString")));
             services.AddScoped<IUsuarioRepository, UsuarioRepository>();
-            services.AddScoped<IUsuarioService, UsuarioService>();
+            services.AddScoped<IUsuarioService, UsuarioService>();  
+            services.AddScoped<IPessoaFisicaRepository, PessoaFisicaRepository>();
+            services.AddScoped<IPessoaFisicaService, PessoaFisicaService>();
             services.AddCors();
 
             services.AddSwaggerGen(c => { c.SwaggerDoc("v1", new OpenApiInfo { Title = "First 2.0", Version = "v1" }); });

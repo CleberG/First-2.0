@@ -41,6 +41,7 @@ namespace First2._0.Application.Services
 
             return pessoaFisica.Select(p => new PessoaFisicaResponseModel()
             {
+                Id = p.Id,
                 Nome = p.Nome,
                 Email = p.Email,
                 CPF = p.CPF,
@@ -63,6 +64,7 @@ namespace First2._0.Application.Services
 
             return new PessoaFisicaResponseModel()
             {
+                Id = pessoaFisica.Id,
                 Nome = pessoaFisica.Nome,
                 Email = pessoaFisica.Email,
                 CPF = pessoaFisica.CPF,
@@ -87,7 +89,6 @@ namespace First2._0.Application.Services
                 request.Complemento, request.Telefone, request.Cidade, request.Bairro, request.Numero, request.CEP, request.UF, request.Ativo);
 
             await _pessoaFisicaRepository.Update(id, pessoaFisica);
-
         }
     }
 }

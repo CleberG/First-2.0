@@ -4,7 +4,7 @@ using Fisrt2._0.Domain.Interfaces;
 
 namespace First2._0.Infra.Repositories
 {
-    class PessoaFisicaRepository : GenericRepository<PessoaFisica>, IPessoaFisicaRepository
+    public class PessoaFisicaRepository : GenericRepository<PessoaFisica>, IPessoaFisicaRepository
     {
         public PessoaFisicaRepository(MainContext dbContext) : base(dbContext)
         {
