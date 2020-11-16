@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using First2._0.Application.Models.UsuarioModel;
+﻿using First2._0.Application.Models.UsuarioModel;
 using First2._0.Application.Services;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace First2._0.Web.Controllers
 {

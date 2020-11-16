@@ -58,7 +58,10 @@ namespace First2._0.Web
             using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
             {
                 var context = serviceScope.ServiceProvider.GetRequiredService<MainContext>();
-                context.Database.Migrate();
+                if (context.Database.ProviderName != "Microsoft.EntityFrameworkCore.InMemory")
+                {
+                    context.Database.Migrate();
+                }
             }
 
             app.UseMvc();
@@ -71,6 +74,12 @@ namespace First2._0.Web
                 c.RoutePrefix = string.Empty;
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
             });
+        }
+
+        private void ConfigureDbContextCollection(IServiceCollection services)
+        {
+            services.AddDbContext<MainContext>(opt =>
+            opt.UseSqlServer(Configuration.GetConnectionString("FirstConnectionString")));
         }
     }
 }
