@@ -20,7 +20,7 @@ namespace First2._0.Application.Services.HistoricoService
         }
         public async Task Create(HistoricoRequestModel request)
         {
-            var historico = new Historico(request.Descricao);
+            var historico = new Historico(request.Descricao,request.Ativo);
             await _historicoRepository.Create(historico);
         }
 
