@@ -35,7 +35,7 @@ namespace First2._0.Application.Services
         public async Task<IList<UsuarioResponseModel>> GetAll()
         {
             var usuarios = _usuarioRepository
-                .GetAll()
+                .GetAll() 
                 .ToList();
 
             return usuarios.Select(d => new UsuarioResponseModel()
