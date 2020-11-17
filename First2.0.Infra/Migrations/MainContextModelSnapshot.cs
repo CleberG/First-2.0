@@ -15,54 +15,29 @@ namespace First2._0.Infra.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "3.1.9")
+                .HasAnnotation("ProductVersion", "2.2.6-servicing-10079")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-            modelBuilder.Entity("Fisrt2._0.Domain.Entidades.Historico", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<bool>("Ativo")
-                        .HasColumnName("Ativo")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Descricao")
-                        .IsRequired()
-                        .HasColumnName("Descricao")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Historico");
-                });
 
             modelBuilder.Entity("Fisrt2._0.Domain.Usuario", b =>
                 {
                     b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .ValueGeneratedOnAdd();
 
                     b.Property<bool>("Ativo")
-                        .HasColumnName("Ativo")
-                        .HasColumnType("bit");
+                        .HasColumnName("Ativo");
 
                     b.Property<string>("Login")
                         .IsRequired()
-                        .HasColumnName("Login")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("Login");
 
                     b.Property<string>("Nome")
                         .IsRequired()
-                        .HasColumnName("Nome")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("Nome");
 
                     b.Property<string>("Senha")
                         .IsRequired()
-                        .HasColumnName("Senha")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("Senha");
 
                     b.HasKey("Id");
 

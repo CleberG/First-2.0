@@ -34,7 +34,7 @@ namespace First2._0.Application.Services
         public async Task<IList<UsuarioResponseModel>> GetAll()
         {
             var usuarios = _usuarioRepository
-                .GetAll() 
+                .GetAll()
                 .ToList();
 
             return usuarios.Select(d => new UsuarioResponseModel()
@@ -62,15 +62,9 @@ namespace First2._0.Application.Services
 
         public async Task Update(Guid id, UsuarioRequestModel request)
         {
-            var verificaUsuario = _usuarioRepository.VerificarExistencia(id);
-            if (verificaUsuario == null)
-            {
-               // exception + mensagem 
-            }
             var usuario = await _usuarioRepository.GetById(id);
             usuario.Update(request.Nome, request.Login, request.Senha, request.Ativo);
             await _usuarioRepository.Update(id, usuario);
-
         }
     }
 }
