@@ -47,7 +47,7 @@ namespace First2._0.Tests.Integration.Integration.HistoricoTest
         {
             var historico = await Client.GetAsync("api/historico");
             var resultJsonHistorico = await historico.Content.ReadAsStringAsync();
-            var getResponse = JsonConvert.DeserializeObject<List<HistoricoResponseModel>>(resultJsonHistorico);
+            var getResponse = JsonConvert.DeserializeObject<List<HistoricoResponseDto>>(resultJsonHistorico);
             getResponse.All(x => x.Ativo);
         }
 
@@ -59,16 +59,16 @@ namespace First2._0.Tests.Integration.Integration.HistoricoTest
             historicoResponse.Should().Be(HttpStatusCode.NoContent);
         }
 
-        private async Task<ApiResponse<List<HistoricoResponseModel>>> CriarHistorico(string suffix)
+        private async Task<ApiResponse<List<HistoricoResponseDto>>> CriarHistorico(string suffix)
         {
             var historico = CriarHistoricoRequest(suffix, $"Descricao{suffix}");
-            var result = await CreateEntity<HistoricoRequestModel, List<HistoricoResponseModel>>(historico, endpointController);
+            var result = await CreateEntity<HistoricoRequestDto, List<HistoricoResponseDto>>(historico, endpointController);
             return result;
         }
 
-        private HistoricoRequestModel CriarHistoricoRequest(string suffix, string descricao)
+        private HistoricoRequestDto CriarHistoricoRequest(string suffix, string descricao)
         {
-            return new HistoricoRequestModel()
+            return new HistoricoRequestDto()
             {
                 Ativo = true,
                 Descricao = $"{descricao}{suffix}"

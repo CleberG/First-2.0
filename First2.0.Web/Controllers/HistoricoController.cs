@@ -20,14 +20,14 @@ namespace First2._0.Web.Controllers
             _historicoService = historicoService;
         }
         [HttpPost]
-        public async Task<IActionResult> Create ([FromBody] HistoricoRequestModel request)
+        public async Task<IActionResult> Create ([FromBody] HistoricoRequestDto request)
         {
             await _historicoService.Create(request);
             return NoContent();
         }
         [HttpPut]
         [Route("{id}")]
-        public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] HistoricoRequestModel request)
+        public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] HistoricoRequestDto request)
         {
             await _historicoService.Update(id, request);
             return NoContent();
@@ -41,12 +41,12 @@ namespace First2._0.Web.Controllers
         }
         [HttpGet]
         [Route("{id}")]
-        public async Task<HistoricoResponseModel> GetById([FromRoute] Guid id)
+        public async Task<HistoricoResponseDto> GetById([FromRoute] Guid id)
         {
             return await _historicoService.GetById(id);
         }
         [HttpGet]
-        public async Task<IList<HistoricoResponseModel>> GetAll()
+        public async Task<IList<HistoricoResponseDto>> GetAll()
         {
             return await _historicoService.GetAll();
         }

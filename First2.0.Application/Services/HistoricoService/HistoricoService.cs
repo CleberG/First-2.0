@@ -18,25 +18,31 @@ namespace First2._0.Application.Services.HistoricoService
         {
             _historicoRepository = historicoRepository;
         }
-        public async Task Create(HistoricoRequestModel request)
+        public async Task Create(HistoricoRequestDto request)
         {
-            var historico = new Historico(request.Descricao,request.Ativo);
+            var historico = new Historico(request.Descricao, request.Ativo);
             await _historicoRepository.Create(historico);
         }
 
         public async Task Delete(Guid id)
         {
             var historico = await _historicoRepository.GetById(id);
+            var verificaHistorico = _historicoRepository.VerificarExistencia(id);
+            if (verificaHistorico == null)
+            {
+                throw new ArgumentException($"Não foi possível encontrar o histórico: {historico.Descricao}.", nameof(historico.Descricao));
+            }
             historico.Desabilitar();
             await _historicoRepository.Update(id, historico);
         }
 
-        public async Task<IList<HistoricoResponseModel>> GetAll()
+        public async Task<IList<HistoricoResponseDto>> GetAll()
         {
             var historicos = _historicoRepository
                 .GetAll()
                 .ToList();
-            return historicos.Select(d => new HistoricoResponseModel()
+
+            return historicos.Select(d => new HistoricoResponseDto()
             {
                 Ativo = d.Ativo,
                 Id = d.Id,
@@ -44,10 +50,15 @@ namespace First2._0.Application.Services.HistoricoService
             }).ToList();
         }
 
-        public async Task<HistoricoResponseModel> GetById(Guid id)
+        public async Task<HistoricoResponseDto> GetById(Guid id)
         {
             var historico = await _historicoRepository.GetById(id);
-            return new HistoricoResponseModel()
+            var verificaHistorico = _historicoRepository.VerificarExistencia(id);
+            if (verificaHistorico == null)
+            {
+                throw new ArgumentException($"Não foi possível encontrar o histórico: {historico.Descricao}.", nameof(historico.Descricao));
+            }
+            return new HistoricoResponseDto()
             {
                 Ativo = historico.Ativo,
                 Id = historico.Id,
@@ -56,14 +67,14 @@ namespace First2._0.Application.Services.HistoricoService
             };
         }
 
-        public async Task Update(Guid id, HistoricoRequestModel request)
+        public async Task Update(Guid id, HistoricoRequestDto request)
         {
+            var historico = await _historicoRepository.GetById(id);
             var verificaHistorico = _historicoRepository.VerificarExistencia(id);
             if (verificaHistorico == null)
             {
-                // exception + mensagem 
+                throw new ArgumentException($"Não foi possível encontrar o histórico: {historico.Descricao}.", nameof(historico.Descricao));
             }
-            var historico = await _historicoRepository.GetById(id);
             historico.Update(request.Descricao, request.Ativo);
             await _historicoRepository.Update(id, historico);
         }

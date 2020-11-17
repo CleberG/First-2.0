@@ -8,10 +8,10 @@ namespace First2._0.Application.Services.HistoricoService
 {
     public interface IHistoricoService
     {
-        Task Create(HistoricoRequestModel request);
-        Task Update(Guid id, HistoricoRequestModel request);
+        Task Create(HistoricoRequestDto request);
+        Task Update(Guid id, HistoricoRequestDto request);
         Task Delete(Guid id);
-        Task<HistoricoResponseModel> GetById(Guid id);
-        Task<IList<HistoricoResponseModel>> GetAll();
+        Task<HistoricoResponseDto> GetById(Guid id);
+        Task<IList<HistoricoResponseDto>> GetAll();
     }
 }

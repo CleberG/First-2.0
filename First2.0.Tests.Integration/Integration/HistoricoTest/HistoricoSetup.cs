@@ -7,19 +7,18 @@ namespace First2._0.Tests.Integration.Integration.HistoricoTest
 {
     public class HistoricoSetup
     {
-        private static HistoricoSetup _historicoSetup;
-
+        private static HistoricoSetup _historicoInstance;
         private HistoricoSetup(DbContext dbContext)
         {
             Task.FromResult(Seed(dbContext));
         }
-        public static HistoricoSetup GetSetup(DbContext dbContext)
+        public static HistoricoSetup GetInstance(DbContext dbContext)
         {
-            if (_historicoSetup == null)
+            if (_historicoInstance == null)
             {
-                _historicoSetup = new HistoricoSetup(dbContext);
+                _historicoInstance = new HistoricoSetup(dbContext);
             }
-            return _historicoSetup;
+            return _historicoInstance;
         }
 
         public Historico Historico { get; private set; }
@@ -34,9 +33,9 @@ namespace First2._0.Tests.Integration.Integration.HistoricoTest
         {
             return new Historico($"Descricao{suffix}", true);
         }
-        public HistoricoResponseModel BuscarHistorico()
+        public HistoricoResponseDto BuscarHistorico()
         {
-            return new HistoricoResponseModel()
+            return new HistoricoResponseDto()
             {
                 Ativo = Historico.Ativo,
                 Descricao = Historico.Descricao,

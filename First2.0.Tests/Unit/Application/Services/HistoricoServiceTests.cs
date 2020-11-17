@@ -29,7 +29,7 @@ namespace First2._0.Tests.Unit.Application.Services
         public async Task Deve_salvar_historico()
         {
             //arrange
-            var model = new HistoricoRequestModel()
+            var model = new HistoricoRequestDto()
             {
                 Ativo = true,
                 Descricao = "Teste Descrição"
@@ -49,12 +49,9 @@ namespace First2._0.Tests.Unit.Application.Services
         public async Task Deve_atualizar_historico()
         {
             //arrange
-            var historicoId = Guid.NewGuid();
-            var model = new HistoricoRequestModel()
-            {
-                Ativo = false,
-               Descricao = "Teste Descrição Atualizado"
-            };
+            Guid historicoId;
+            HistoricoRequestDto model;
+            GetIdModelHistorico(out historicoId, out model);
             var historico = new HistoricoBuilder()
                 .ComDescricao("Teste Descricao")
                 .Ativo()
@@ -74,6 +71,15 @@ namespace First2._0.Tests.Unit.Application.Services
                 .Update(historicoId, Arg.Is<Historico>(d => d.Ativo == false
                                                       && d.Descricao == "Teste Descrição Atualizado"));
 
+        }
+        private static void GetIdModelHistorico(out Guid historicoId, out HistoricoRequestDto model)
+        {
+            historicoId = Guid.NewGuid();
+            model = new HistoricoRequestDto()
+            {
+                Ativo = false,
+                Descricao = "Teste Descrição Atualizado"
+            };
         }
 
         [Fact]
