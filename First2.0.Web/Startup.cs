@@ -1,5 +1,4 @@
 ﻿using First2._0.Application.Services;
-using First2._0.Application.Services.HistoricoService;
 using First2._0.Infra.Context;
 using First2._0.Infra.Filter;
 using First2._0.Infra.Repositories;
@@ -11,7 +10,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.OpenApi.Models;
 
 namespace First2._0.Web
 {
@@ -36,12 +34,7 @@ namespace First2._0.Web
             services.AddDbContext<MainContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("FirstConnectionString")));
             services.AddScoped<IUsuarioRepository, UsuarioRepository>();
             services.AddScoped<IUsuarioService, UsuarioService>();
-
-            services.AddScoped<IHistoricoRepository, HistoricoRepository>();
-            services.AddScoped<IHistoricoService, HistoricoService>();
             services.AddCors();
-
-            services.AddSwaggerGen(c => { c.SwaggerDoc("v1", new OpenApiInfo { Title = "First 2.0", Version = "v1" }); });
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -64,13 +57,6 @@ namespace First2._0.Web
             app.UseMvc();
             app.UseHttpsRedirection();
             app.UseCors(option => option.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
-            app.UseSwagger();
-
-            app.UseSwaggerUI(c =>
-            {
-                c.RoutePrefix = string.Empty;
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
-            });
         }
     }
 }
