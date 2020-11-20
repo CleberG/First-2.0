@@ -5,14 +5,14 @@ namespace Fisrt2._0.Domain.Entidades
 {
     public class Funcionario : EntidadeBase
     {
-        public Funcionario(string nome, TipoFuncionario tipoFuncionario, string usuario, string senha)
+        public Funcionario(string nome, TipoFuncionario tipoFuncionario, string usuario, string senha, bool ativo)
             : base(new FuncionarioValidation())
         {
             Nome = nome;
             TipoFuncionario = tipoFuncionario;
             Usuario = usuario;
             Senha = senha;
-            Ativo = true;
+            Ativo = ativo;
         }
 
         public void Update(string nome, TipoFuncionario tipoFuncionario, string usuario, string senha)

@@ -23,7 +23,8 @@ namespace First2._0.Application.Services.Funcionarios
 
         public async Task Create(FuncionarioRequestModel request)
         {
-            var funcionario = new Funcionario(request.Nome, request.TipoFuncionario, request.Usuario, request.Senha);
+            var funcionario = new Funcionario(request.Nome, request.TipoFuncionario, 
+                request.Usuario, request.Senha, request.Ativo);
 
             if (funcionario.Invalid)
             {

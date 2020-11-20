@@ -9,7 +9,7 @@ namespace Fisrt2._0.Domain
        : EntidadeBase
     {
         public Usuario(string nome, string login, string senha, bool ativo)
-            : base(true, new UsuarioValidation())
+            : base(new UsuarioValidation())
         {
             Nome = nome;
             Login = login;
