@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Fisrt2._0.Domain.Validation;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -8,6 +9,7 @@ namespace Fisrt2._0.Domain
        : EntidadeBase
     {
         public Usuario(string nome, string login, string senha, bool ativo)
+            : base(true, new UsuarioValidation())
         {
             Nome = nome;
             Login = login;
