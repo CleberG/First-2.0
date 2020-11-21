@@ -10,7 +10,7 @@ namespace First2._0.Application.Services
 {
     public class PessoaFisicaService : IPessoaFisicaService
     {
-        private readonly IPessoaFisicaRepository _pessoaFisicaRepository;
+        private readonly IPessoaFisicaRepository _pessoaFisicaRepository; 
 
         public PessoaFisicaService(IPessoaFisicaRepository pessoaFisicaRepository)
         {
@@ -21,6 +21,8 @@ namespace First2._0.Application.Services
         {
             var pessoaFisica = new PessoaFisica(request.Nome, request.Email, request.CPF, request.DataNascimento, request.LimiteCredito,
                 request.Complemento, request.Telefone, request.Cidade, request.Bairro, request.Numero, request.CEP, request.UF, request.Ativo);
+
+            pessoaFisica.Validar();
 
             await _pessoaFisicaRepository.Create(pessoaFisica);
         }

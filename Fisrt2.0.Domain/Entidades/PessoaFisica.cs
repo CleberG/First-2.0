@@ -1,4 +1,6 @@
 ﻿using Fisrt2._0.Domain.Enums;
+using Fisrt2._0.Domain.Validation;
+using FluentValidation;
 using System;
 
 namespace Fisrt2._0.Domain.Entidades
@@ -49,6 +51,12 @@ namespace Fisrt2._0.Domain.Entidades
         public void Desabilitar()
         {
             Ativo = false;
+        }
+
+        public void Validar()
+        {
+            var validations = new PessoaFisicaValidation();
+            validations.ValidateAndThrow(this);
         }
 
         public string Nome { get; set; }
