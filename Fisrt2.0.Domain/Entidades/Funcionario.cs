@@ -1,7 +1,7 @@
 ﻿using Fisrt2._0.Domain.Enums;
 using Fisrt2._0.Domain.Validation;
 
-namespace Fisrt2._0.Domain.Entidades
+namespace Fisrt2._0.Domain
 {
     public class Funcionario : EntidadeBase
     {

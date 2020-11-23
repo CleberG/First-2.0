@@ -1,8 +1,8 @@
 ﻿using First2._0.Infra.Context;
-using Fisrt2._0.Domain.Entidades;
+using Fisrt2._0.Domain;
 using Fisrt2._0.Domain.Interfaces;
 using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
+using System;
 using System.Threading.Tasks;
 
 namespace First2._0.Infra.Repositories
@@ -11,6 +11,11 @@ namespace First2._0.Infra.Repositories
     {
         public FuncionarioRepository(MainContext dbContext) : base(dbContext)
         {
+
+        }
+        public async Task<bool> VerificaSeFuncionarioExiste(string name, Guid? id)
+        {
+            return await _dbContext.Set<Funcionario>().AnyAsync(x => x.Nome == name && x.Id != id);
         }
     }
 }

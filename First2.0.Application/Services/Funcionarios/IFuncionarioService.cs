@@ -11,6 +11,6 @@ namespace First2._0.Application.Services.Funcionarios
         Task Disable(Guid id);
         Task Update(Guid id, FuncionarioRequestModel request);
         Task<FuncionarioResponseModel> GetById(Guid id);
-        Task<IEnumerable<FuncionarioResponseModel>> GetAll();
+        Task<IList<FuncionarioResponseModel>> GetAll();
     }
 }

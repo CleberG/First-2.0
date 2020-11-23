@@ -1,5 +1,4 @@
-﻿using Fisrt2._0.Domain.Entidades;
-using FluentValidation;
+﻿using FluentValidation;
 
 namespace Fisrt2._0.Domain.Validation
 {
@@ -10,17 +9,11 @@ namespace Fisrt2._0.Domain.Validation
             ValidaNome();
             ValidaUsuario();
             ValidaSenha();
-            ValidaTipoFuncionario();
         }
 
         private void ValidaNome()
         {
             RuleFor(x => x.Nome).NotEmpty().WithMessage("Informe o nome do funcionário.");
-        }
-
-        private void ValidaTipoFuncionario()
-        {
-            RuleFor(x => x.TipoFuncionario).NotEmpty().WithMessage("Informe o tipo do funcionário.");
         }
 
         private void ValidaUsuario()
@@ -30,8 +23,10 @@ namespace Fisrt2._0.Domain.Validation
 
         private void ValidaSenha()
         {
-            RuleFor(x => x.Senha).MinimumLength(8).WithMessage("Informe uma senha com 8 caracteres.")
-                .NotEmpty().WithMessage("Informe uma senha.");
+            RuleFor(x => x.Senha).MinimumLength(8)
+                .WithMessage("Informe uma senha com 8 caracteres.")
+                .NotEmpty()
+                .WithMessage("Informe uma senha.");
         }
     }
 }

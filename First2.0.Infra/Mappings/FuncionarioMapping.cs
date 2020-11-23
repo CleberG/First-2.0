@@ -1,4 +1,4 @@
-﻿using Fisrt2._0.Domain.Entidades;
+﻿using Fisrt2._0.Domain;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

@@ -1,5 +1,5 @@
 ﻿using First2._0.Tests.Builders;
-using Fisrt2._0.Domain.Entidades;
+using Fisrt2._0.Domain;
 using Fisrt2._0.Domain.Enums;
 using FluentAssertions;
 using Xunit;
@@ -12,7 +12,8 @@ namespace First2._0.Tests.Unit.Domain.Entidade
         public void Deve_Criar_Funcionario()
         {
             var funcionario = CreateFuncionario();
-            var newFuncionario = new Funcionario(funcionario.Nome, funcionario.TipoFuncionario, funcionario.Usuario, funcionario.Senha);
+            var newFuncionario = new Funcionario(funcionario.Nome, funcionario.TipoFuncionario,
+                funcionario.Usuario, funcionario.Senha, true);
 
             newFuncionario.Nome.Should().Be(funcionario.Nome);
             newFuncionario.TipoFuncionario.Should().Be(funcionario.TipoFuncionario);
@@ -24,7 +25,7 @@ namespace First2._0.Tests.Unit.Domain.Entidade
         [Fact]
         public void Deve_Desativar_Funcionario()
         {
-            var funcionario = new Funcionario("Funcionario", TipoFuncionario.Gerente, "Usuario", "Senha");
+            var funcionario = new Funcionario("Funcionario", TipoFuncionario.Gerente, "Usuario", "Senha", false);
 
             funcionario.Desabilitar();
 
@@ -42,7 +43,6 @@ namespace First2._0.Tests.Unit.Domain.Entidade
             funcionario.TipoFuncionario.Should().Be(TipoFuncionario.Gerente);
             funcionario.Usuario.Should().Be("Usuario");
             funcionario.Senha.Should().Be("Senha");
-            funcionario.Ativo.Should().BeFalse();
         }
 
         private Funcionario CreateFuncionario()

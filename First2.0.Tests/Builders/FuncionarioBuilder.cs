@@ -1,4 +1,4 @@
-﻿using Fisrt2._0.Domain.Entidades;
+﻿using Fisrt2._0.Domain;
 using Fisrt2._0.Domain.Enums;
 using System;
 
@@ -15,7 +15,7 @@ namespace First2._0.Tests.Builders
 
         public Funcionario Construir()
         {
-            return new Funcionario(_nome, _tipoFuncionario, _usuario, _senha)
+            return new Funcionario(_nome, _tipoFuncionario, _usuario, _senha, _ativo)
             {
                 Id = _id
             };

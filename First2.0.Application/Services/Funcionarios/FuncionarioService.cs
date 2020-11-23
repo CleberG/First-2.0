@@ -1,7 +1,7 @@
 ﻿using First2._0.Application.Models.FuncionarioModel;
 using First2._0.Application.Services.Base;
 using First2._0.Application.Services.Notifications;
-using Fisrt2._0.Domain.Entidades;
+using Fisrt2._0.Domain;
 using Fisrt2._0.Domain.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -23,7 +23,7 @@ namespace First2._0.Application.Services.Funcionarios
 
         public async Task Create(FuncionarioRequestModel request)
         {
-            var funcionario = new Funcionario(request.Nome, request.TipoFuncionario, 
+            var funcionario = new Funcionario(request.Nome, request.TipoFuncionario,
                 request.Usuario, request.Senha, request.Ativo);
 
             if (funcionario.Invalid)
@@ -39,13 +39,21 @@ namespace First2._0.Application.Services.Funcionarios
         {
             var funcionario = await _funcionarioRepository.GetById(id);
             if (HasNotification<Funcionario>(funcionario, _notificationService))
+            {
                 return;
+            }
+
+            if (await _funcionarioRepository.VerificaSeFuncionarioExiste(funcionario.Nome, id))
+            {
+                _notificationService.AddNotification("Funcionario", "Funcionario não encontrado.");
+                return;
+            }
 
             funcionario.Desabilitar();
             await _funcionarioRepository.Update(id, funcionario);
         }
 
-        public async Task<IEnumerable<FuncionarioResponseModel>> GetAll()
+        public async Task<IList<FuncionarioResponseModel>> GetAll()
         {
             var funcionario = _funcionarioRepository.GetAll().ToList();
 
@@ -63,8 +71,17 @@ namespace First2._0.Application.Services.Funcionarios
         public async Task<FuncionarioResponseModel> GetById(Guid id)
         {
             var funcionario = await _funcionarioRepository.GetById(id);
+
             if (HasNotification<Funcionario>(funcionario, _notificationService))
+            {
                 return null;
+            }
+
+            if (await _funcionarioRepository.VerificaSeFuncionarioExiste(funcionario.Nome, id))
+            {
+                _notificationService.AddNotification("Funcionario", "Funcionario não encontrado");
+                return null;
+            }
 
             return new FuncionarioResponseModel()
             {
@@ -82,6 +99,12 @@ namespace First2._0.Application.Services.Funcionarios
             var funcionario = await _funcionarioRepository.GetById(id);
             if (HasNotification<Funcionario>(funcionario, _notificationService))
                 return;
+
+            if (await _funcionarioRepository.VerificaSeFuncionarioExiste(request.Nome, id))
+            {
+                _notificationService.AddNotification("Funcionario", "Já existe um funcionario com esse nome.");
+                return;
+            }
 
             funcionario.Update(request.Nome, funcionario.TipoFuncionario, funcionario.Usuario, funcionario.Senha);
 
