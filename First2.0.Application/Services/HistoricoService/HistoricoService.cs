@@ -21,6 +21,7 @@ namespace First2._0.Application.Services.HistoricoService
         public async Task Create(HistoricoRequestDto request)
         {
             var historico = new Historico(request.Descricao, request.Ativo);
+            historico.HistoricoValidate();
             await _historicoRepository.Create(historico);
         }
 

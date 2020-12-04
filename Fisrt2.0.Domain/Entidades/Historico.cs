@@ -1,4 +1,7 @@
-﻿namespace Fisrt2._0.Domain.Entidades
+﻿using Fisrt2._0.Domain.Validation;
+using FluentValidation;
+
+namespace Fisrt2._0.Domain.Entidades
 {
     public class Historico :
         EntidadeBase
@@ -20,6 +23,11 @@
         public void Desabilitar()
         {
             Ativo = false;
+        }
+        public void HistoricoValidate()
+        {
+            var validations = new HistoricoValidation();
+            validations.ValidateAndThrow(this);
         }
     }
 }
