@@ -3,6 +3,7 @@ using First2._0.Application.Services;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Threading.Tasks;
 
 namespace First2._0.Web.Controllers
@@ -20,8 +21,15 @@ namespace First2._0.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] PessoaFisicaRequestModel request)
         {
-            await _pessoaFisicaService.Create(request);
-            return NoContent();
+            try
+            {
+                await _pessoaFisicaService.Create(request);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode((int)HttpStatusCode.BadRequest, $"Api error: {ex.Message}");
+            }
         }
 
         [HttpPut]
@@ -29,7 +37,7 @@ namespace First2._0.Web.Controllers
         public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] PessoaFisicaRequestModel request)
         {
             await _pessoaFisicaService.Update(id, request);
-            return NoContent();
+            return Ok();
         }
 
         [HttpDelete]
@@ -37,7 +45,7 @@ namespace First2._0.Web.Controllers
         public async Task<IActionResult> Delete([FromRoute] Guid id)
         {
             await _pessoaFisicaService.Delete(id);
-            return NoContent();
+            return Ok();
         }
 
         [HttpGet]
