@@ -2,7 +2,7 @@
 
 namespace First2._0.Application.Models.FuncionarioModel
 {
-    public abstract class FuncionarioModelBase
+    public abstract class FuncionarioDtoBase
     {
         public string Nome { get; set; }
         public TipoFuncionario TipoFuncionario{ get; set; }

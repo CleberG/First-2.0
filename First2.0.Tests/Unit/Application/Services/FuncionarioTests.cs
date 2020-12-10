@@ -126,7 +126,7 @@ namespace First2._0.Tests.Unit.Application.Services
 
             _funcionarioRepository.GetById(funcionarioId).Returns(funcionario);
 
-            await _funcionarioService.Disable(funcionarioId);
+            await _funcionarioService.Delete(funcionarioId);
 
             await _funcionarioRepository.Received(1).Update(funcionarioId, Arg.Is<Funcionario>(x => !x.Ativo));
         }
@@ -143,10 +143,10 @@ namespace First2._0.Tests.Unit.Application.Services
                             .Construir();
         }
 
-        private FuncionarioRequestModel CriarFuncionarioRequest(string nome, string usuario, string senha,
+        private FuncionarioRequestDto CriarFuncionarioRequest(string nome, string usuario, string senha,
             TipoFuncionario tipoFuncionario, bool ativo)
         {
-            return new FuncionarioRequestModel()
+            return new FuncionarioRequestDto()
             {
                 Ativo = ativo,
                 Nome = nome,

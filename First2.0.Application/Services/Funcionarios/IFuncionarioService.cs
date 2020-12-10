@@ -7,10 +7,10 @@ namespace First2._0.Application.Services.Funcionarios
 {
     public interface IFuncionarioService
     {
-        Task Create(FuncionarioRequestModel request);
-        Task Disable(Guid id);
-        Task Update(Guid id, FuncionarioRequestModel request);
-        Task<FuncionarioResponseModel> GetById(Guid id);
-        Task<IList<FuncionarioResponseModel>> GetAll();
+        Task Create(FuncionarioRequestDto request);
+        Task Delete(Guid id);
+        Task Update(Guid id, FuncionarioRequestDto request);
+        Task<FuncionarioResponseDto> GetById(Guid id);
+        Task<IList<FuncionarioResponseDto>> GetAll();
     }
 }

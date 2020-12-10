@@ -21,7 +21,7 @@ namespace First2._0.Application.Services.Funcionarios
             _notificationService = notificationService;
         }
 
-        public async Task Create(FuncionarioRequestModel request)
+        public async Task Create(FuncionarioRequestDto request)
         {
             var funcionario = new Funcionario(request.Nome, request.TipoFuncionario,
                 request.Usuario, request.Senha, request.Ativo);
@@ -35,7 +35,7 @@ namespace First2._0.Application.Services.Funcionarios
             await _funcionarioRepository.Create(funcionario);
         }
 
-        public async Task Disable(Guid id)
+        public async Task Delete(Guid id)
         {
             var funcionario = await _funcionarioRepository.GetById(id);
             if (HasNotification<Funcionario>(funcionario, _notificationService))
@@ -43,21 +43,15 @@ namespace First2._0.Application.Services.Funcionarios
                 return;
             }
 
-            if (await _funcionarioRepository.VerificaSeFuncionarioExiste(funcionario.Nome, id))
-            {
-                _notificationService.AddNotification("Funcionario", "Funcionario não encontrado.");
-                return;
-            }
-
             funcionario.Desabilitar();
             await _funcionarioRepository.Update(id, funcionario);
         }
 
-        public async Task<IList<FuncionarioResponseModel>> GetAll()
+        public async Task<IList<FuncionarioResponseDto>> GetAll()
         {
             var funcionario = _funcionarioRepository.GetAll().ToList();
 
-            return funcionario.Select(x => new FuncionarioResponseModel()
+            return funcionario.Select(x => new FuncionarioResponseDto()
             {
                 Id = x.Id,
                 Nome = x.Nome,
@@ -68,7 +62,7 @@ namespace First2._0.Application.Services.Funcionarios
             }).ToList();
         }
 
-        public async Task<FuncionarioResponseModel> GetById(Guid id)
+        public async Task<FuncionarioResponseDto> GetById(Guid id)
         {
             var funcionario = await _funcionarioRepository.GetById(id);
 
@@ -77,13 +71,7 @@ namespace First2._0.Application.Services.Funcionarios
                 return null;
             }
 
-            if (await _funcionarioRepository.VerificaSeFuncionarioExiste(funcionario.Nome, id))
-            {
-                _notificationService.AddNotification("Funcionario", "Funcionario não encontrado");
-                return null;
-            }
-
-            return new FuncionarioResponseModel()
+            return new FuncionarioResponseDto()
             {
                 Id = funcionario.Id,
                 Nome = funcionario.Nome,
@@ -94,7 +82,7 @@ namespace First2._0.Application.Services.Funcionarios
             };
         }
 
-        public async Task Update(Guid id, FuncionarioRequestModel request)
+        public async Task Update(Guid id, FuncionarioRequestDto request)
         {
             var funcionario = await _funcionarioRepository.GetById(id);
             if (HasNotification<Funcionario>(funcionario, _notificationService))

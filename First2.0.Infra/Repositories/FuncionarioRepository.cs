@@ -11,7 +11,6 @@ namespace First2._0.Infra.Repositories
     {
         public FuncionarioRepository(MainContext dbContext) : base(dbContext)
         {
-
         }
         public async Task<bool> VerificaSeFuncionarioExiste(string name, Guid? id)
         {

@@ -19,7 +19,7 @@ namespace First2._0.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] FuncionarioRequestModel request)
+        public async Task<IActionResult> Create([FromBody] FuncionarioRequestDto request)
         {
             await _funcionarioService.Create(request);
             return Ok();
@@ -29,30 +29,29 @@ namespace First2._0.Web.Controllers
         [Route("{id}")]
         public async Task<IActionResult> Disable([FromRoute] Guid id)
         {
-            await _funcionarioService.Disable(id);
+            await _funcionarioService.Delete(id);
             return Ok();
         }
 
         [HttpGet]
-        public async Task<IEnumerable<FuncionarioResponseModel>> GetAll()
+        public async Task<IEnumerable<FuncionarioResponseDto>> GetAll()
         {
             return await _funcionarioService.GetAll();
         }
 
         [HttpGet]
         [Route("{id}")]
-        public async Task<FuncionarioResponseModel> GetById([FromRoute] Guid id)
+        public async Task<FuncionarioResponseDto> GetById([FromRoute] Guid id)
         {
             return await _funcionarioService.GetById(id);
         }
 
         [HttpPut]
         [Route("{id}")]
-        public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] FuncionarioRequestModel request)
+        public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] FuncionarioRequestDto request)
         {
             await _funcionarioService.Update(id, request);
             return Ok();
         }
-
     }
 }

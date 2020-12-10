@@ -49,7 +49,7 @@ namespace First2._0.Tests.Integration.Integration.FuncionarioTest
             var getResult = await Client.GetAsync($"api/{endpointController}");
 
             var resultJsonFuncionario = await getResult.Content.ReadAsStringAsync();
-            var funcionarioResponse = JsonConvert.DeserializeObject<List<FuncionarioResponseModel>>(resultJsonFuncionario);
+            var funcionarioResponse = JsonConvert.DeserializeObject<List<FuncionarioResponseDto>>(resultJsonFuncionario);
 
             getResult.StatusCode.Should().Be(HttpStatusCode.OK);
 
@@ -64,7 +64,7 @@ namespace First2._0.Tests.Integration.Integration.FuncionarioTest
             var getResult = await GetEntity(getFuncionario.Id, endpointController);
 
             var resultJsonFuncionario = await getResult.Content.ReadAsStringAsync();
-            var funcionarioResponse = JsonConvert.DeserializeObject<FuncionarioResponseModel>(resultJsonFuncionario);
+            var funcionarioResponse = JsonConvert.DeserializeObject<FuncionarioResponseDto>(resultJsonFuncionario);
 
             getResult.StatusCode.Should().Be(HttpStatusCode.OK);
 
@@ -90,9 +90,9 @@ namespace First2._0.Tests.Integration.Integration.FuncionarioTest
             funcionarioResponse.StatusCode.Should().Be(HttpStatusCode.OK);
         }
 
-        private FuncionarioRequestModel CriarFuncionarioRequest(string suffix, TipoFuncionario tipoFuncionario)
+        private FuncionarioRequestDto CriarFuncionarioRequest(string suffix, TipoFuncionario tipoFuncionario)
         {
-            return new FuncionarioRequestModel()
+            return new FuncionarioRequestDto()
             {
                 Ativo = true,
                 Nome = $"Nome{suffix}",
